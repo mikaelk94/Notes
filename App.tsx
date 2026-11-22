@@ -1,20 +1,62 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
+import NoteInput from './src/components/NoteInput'
+import { createContext, useState } from 'react'
+import { NavigationBar } from 'expo-navigation-bar'
+import { FloatingActionButton } from './src/components/FAB'
+
+export const ThemeContext = createContext({
+  theme: 'dark',
+  themeContainerBg: '#27374D',
+  buttonBg: '#526D82',
+  borderColor: '#3b3b3b',
+  textColor: '#ffffff',
+})
 
 export default function App() {
+  const [localScheme, setLocalScheme] = useState('dark')
+
+  const themeContainerBg = localScheme === 'light' ? '#fff' : '#141414'
+  const buttonBg = localScheme === 'light' ? '#fff' : '#222222'
+  const borderColor = localScheme === 'light' ? '#5f5f63' : '#424f94'
+  const textColor = localScheme === 'light' ? '#000' : '#ffffff'
+
+  console.log('Current color scheme:', localScheme) // Log the current color scheme
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <ThemeContext.Provider
+      value={{
+        theme: localScheme,
+        themeContainerBg: themeContainerBg,
+        buttonBg: buttonBg,
+        borderColor: borderColor,
+        textColor: textColor,
+      }}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={[styles.container, { backgroundColor: themeContainerBg }]}
+      >
+        <StatusBar style={localScheme === 'light' ? 'dark' : 'light'} />
+        <NavigationBar style={localScheme === 'light' ? 'dark' : 'light'} />
+        <NoteInput />
+      </KeyboardAvoidingView>
+      <FloatingActionButton
+        onPress={() =>
+          setLocalScheme(localScheme === 'light' ? 'dark' : 'light')
+        }
+      />
+    </ThemeContext.Provider>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    padding: 3,
+    paddingVertical: '13%',
+    borderColor: 'red',
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
   },
-});
+})
