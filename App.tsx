@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native'
-import NoteInput from './src/components/NoteInput'
+import NotesScreen from './src/components/NotesScreen'
 import { createContext, useState } from 'react'
 import { NavigationBar } from 'expo-navigation-bar'
 import { FloatingActionButton } from './src/components/FAB'
@@ -39,7 +39,7 @@ export default function App() {
       >
         <StatusBar style={localScheme === 'light' ? 'dark' : 'light'} />
         <NavigationBar style={localScheme === 'light' ? 'dark' : 'light'} />
-        <NoteInput />
+        <NotesScreen />
       </KeyboardAvoidingView>
       <FloatingActionButton
         onPress={() =>

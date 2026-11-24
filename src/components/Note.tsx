@@ -3,7 +3,15 @@ import { useContext, useState } from 'react'
 import { Pressable, StyleSheet, Text } from 'react-native'
 import { ThemeContext } from '../../App'
 
-export default function Note({ title }: { title: string }) {
+export default function Note({
+  title,
+  onLongPress,
+  onTouchEnd,
+}: {
+  title: string
+  onLongPress: () => void
+  onTouchEnd: () => void
+}) {
   const [isChecked, setChecked] = useState(false)
 
   const { buttonBg, borderColor, textColor } = useContext(ThemeContext)
@@ -22,6 +30,8 @@ export default function Note({ title }: { title: string }) {
         },
       ]}
       onPress={() => setChecked(!isChecked)}
+      onLongPress={onLongPress}
+      onTouchEnd={onTouchEnd}
     >
       <Checkbox
         color={borderColor}

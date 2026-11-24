@@ -1,8 +1,12 @@
 import { FlatList } from 'react-native'
 import Note from './Note'
 
-export default function NotesList(props: { listOfNotes: string[] }) {
-  const { listOfNotes } = props
+export default function NotesList(props: {
+  listOfNotes: string[]
+  onLongPress: () => void
+  onTouchEnd: () => void
+}) {
+  const { listOfNotes, onLongPress, onTouchEnd } = props
 
   return (
     <FlatList
@@ -12,7 +16,9 @@ export default function NotesList(props: { listOfNotes: string[] }) {
         justifyContent: 'center',
       }}
       data={listOfNotes}
-      renderItem={({ item }) => <Note title={item} />}
+      renderItem={({ item }) => (
+        <Note title={item} onLongPress={onLongPress} onTouchEnd={onTouchEnd} />
+      )}
       keyExtractor={(item, index) => index.toString()}
     />
   )
