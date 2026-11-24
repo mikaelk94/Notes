@@ -32,6 +32,7 @@ export default function Note({
       onPress={() => setChecked(!isChecked)}
       onLongPress={onLongPress}
       onTouchEnd={onTouchEnd}
+      delayLongPress={300}
     >
       <Checkbox
         color={borderColor}
@@ -39,7 +40,9 @@ export default function Note({
         value={isChecked}
         onValueChange={setChecked}
       />
-      <Text style={[styles.paragraph, { color: textColor }]}>{title}</Text>
+      <Text style={[styles.paragraph, { color: textColor, fontSize: 18 }]}>
+        {title}
+      </Text>
     </Pressable>
   )
 }

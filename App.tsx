@@ -4,6 +4,7 @@ import NotesScreen from './src/components/NotesScreen'
 import { createContext, useState } from 'react'
 import { NavigationBar } from 'expo-navigation-bar'
 import { FloatingActionButton } from './src/components/FAB'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export const ThemeContext = createContext({
   theme: 'dark',
@@ -33,19 +34,21 @@ export default function App() {
         textColor: textColor,
       }}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={[styles.container, { backgroundColor: themeContainerBg }]}
-      >
-        <StatusBar style={localScheme === 'light' ? 'dark' : 'light'} />
-        <NavigationBar style={localScheme === 'light' ? 'dark' : 'light'} />
-        <NotesScreen />
-      </KeyboardAvoidingView>
-      <FloatingActionButton
-        onPress={() =>
-          setLocalScheme(localScheme === 'light' ? 'dark' : 'light')
-        }
-      />
+      <SafeAreaView style={{ flex: 1, backgroundColor: themeContainerBg }}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={[styles.container, { backgroundColor: themeContainerBg }]}
+        >
+          <StatusBar style={localScheme === 'light' ? 'dark' : 'light'} />
+          <NavigationBar style={localScheme === 'light' ? 'dark' : 'light'} />
+          <NotesScreen />
+        </KeyboardAvoidingView>
+        <FloatingActionButton
+          onPress={() =>
+            setLocalScheme(localScheme === 'light' ? 'dark' : 'light')
+          }
+        />
+      </SafeAreaView>
     </ThemeContext.Provider>
   )
 }
@@ -53,7 +56,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     padding: 3,
-    paddingVertical: '13%',
+    paddingTop: 55,
     borderColor: 'red',
     backgroundColor: '#fff',
     alignItems: 'center',

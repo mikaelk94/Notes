@@ -104,6 +104,7 @@ export default function NotesScreen() {
           hitSlop={100}
           onLongPress={onLongPress}
           onTouchEnd={onTouchEnd}
+          delayLongPress={300}
         >
           {isPositioning &&
             (justifyContentRef.current === 'center' ||
