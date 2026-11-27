@@ -41,3 +41,5 @@ yarn-error.*
 /android
 
 google-services.json
+distribute.txt
+/plugins

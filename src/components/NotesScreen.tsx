@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/refs */
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import {
+  Keyboard,
   PanResponder,
   Pressable,
   StyleSheet,
@@ -90,6 +91,7 @@ export default function NotesScreen() {
     <>
       <View
         {...panResponder.panHandlers}
+        onTouchStart={Keyboard.dismiss}
         onLayout={({ nativeEvent }) => {
           containerHeightRef.current = nativeEvent.layout.height
         }}
@@ -163,6 +165,7 @@ export default function NotesScreen() {
               setListOfNotes([])
             })
           }
+          onTouchStart={Keyboard.dismiss}
         >
           <MaterialCommunityIcons
             name='trash-can-outline'
