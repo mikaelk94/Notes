@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/refs */
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import {
+  Alert,
   Keyboard,
   PanResponder,
   Pressable,
@@ -36,7 +37,8 @@ export default function NotesScreen() {
     })
   }, [])
 
-  const { borderColor, textColor, themeContainerBg } = useContext(ThemeContext)
+  const { borderColor, textColor, themeContainerBg, buttonBg } =
+    useContext(ThemeContext)
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const panResponder = useMemo(
@@ -107,7 +109,7 @@ export default function NotesScreen() {
             <Pressable
               onLongPress={onLongPress}
               onTouchEnd={onTouchEnd}
-              delayLongPress={200}
+              delayLongPress={0}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
@@ -180,8 +182,8 @@ export default function NotesScreen() {
           style={({ pressed }) => [
             {
               opacity: pressed ? 0.85 : 1,
-              backgroundColor: themeContainerBg,
-              borderWidth: 2,
+              backgroundColor: buttonBg,
+              borderWidth: 1,
               borderColor: borderColor,
               flex: 1,
               justifyContent: 'center',
@@ -189,11 +191,30 @@ export default function NotesScreen() {
               borderRadius: 4,
             },
           ]}
-          onPress={() =>
-            clearData().then(() => {
-              setListOfNotes([])
-            })
-          }
+          onPress={() => {
+            console.log('trash pressed')
+            Alert.alert(
+              'Clear notes?',
+              '',
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
+                },
+                {
+                  text: 'Yes',
+                  style: 'default',
+                  onPress: () =>
+                    clearData().then(() => {
+                      setListOfNotes([])
+                    }),
+                },
+              ],
+              {
+                cancelable: true,
+              },
+            )
+          }}
           onTouchStart={Keyboard.dismiss}
         >
           <MaterialCommunityIcons
@@ -211,6 +232,7 @@ export default function NotesScreen() {
               flex: 7,
               borderRadius: 4,
               fontSize: 18,
+              backgroundColor: buttonBg,
             },
           ]}
           onChangeText={onChangeText}

@@ -9,7 +9,7 @@ interface FabProps {
 }
 
 export function FloatingActionButton({ onPress, style }: FabProps) {
-  const { theme } = useContext(ThemeContext)
+  const { theme, buttonBg, textColor } = useContext(ThemeContext)
 
   return (
     <Pressable
@@ -18,12 +18,16 @@ export function FloatingActionButton({ onPress, style }: FabProps) {
         styles.fab,
         pressed && styles.pressed,
         style,
-        { backgroundColor: theme === 'light' ? '#9b9ca1' : '#424f94' },
+        { backgroundColor: theme === 'light' ? '#9b9ca1' : buttonBg },
       ]}
       accessibilityRole='button'
       accessibilityLabel='Floating action button'
     >
-      <MaterialCommunityIcons name='theme-light-dark' size={24} color='black' />
+      <MaterialCommunityIcons
+        name='theme-light-dark'
+        size={24}
+        color={textColor}
+      />
     </Pressable>
   )
 }
