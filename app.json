@@ -20,9 +20,9 @@
       "package": "com.notes",
       "googleServicesFile": "./google-services.json"
     },
-    "web": {
+    /* "web": {
       "favicon": "./assets/favicon.png"
-    },
+    }, */
     "runtimeVersion": {
       "policy": "appVersion"
     },
@@ -37,8 +37,8 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#141414",
-          "image": "./assets/ic_launcher.png",
+          //"backgroundColor": "#343434",
+          "image": "./assets/dark-splash.png",
           /* "dark": {
             "image": "./assets/images/splash-icon-dark.png",
             "backgroundColor": "#000000"
