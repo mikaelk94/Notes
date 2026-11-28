@@ -51,7 +51,7 @@ export default function NotesScreen() {
           dragStartDyRef.current = dy
         },
         onPanResponderMove: (_, { dy }) => {
-          const stepSize = Math.max(containerHeightRef.current / 2, 1)
+          const stepSize = Math.max(containerHeightRef.current / 4, 1)
           const offset = Math.round((dy - dragStartDyRef.current) / stepSize)
           const nextIndex = Math.max(
             0,
@@ -102,42 +102,71 @@ export default function NotesScreen() {
           justifyContent,
         }}
       >
-        <Pressable
-          hitSlop={100}
-          onLongPress={onLongPress}
-          onTouchEnd={onTouchEnd}
-          delayLongPress={300}
-        >
-          {isPositioning &&
-            (justifyContentRef.current === 'center' ||
-              justifyContentRef.current === 'flex-end') && (
-              <>
+        <View>
+          {listOfNotes.length ? (
+            <Pressable
+              onLongPress={onLongPress}
+              onTouchEnd={onTouchEnd}
+              delayLongPress={200}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+            >
+              {isPositioning && (
+                <>
+                  <MaterialCommunityIcons
+                    name={
+                      justifyContentRef.current === 'flex-start'
+                        ? 'arrow-down'
+                        : justifyContentRef.current === 'flex-end'
+                          ? 'arrow-up'
+                          : 'swap-vertical'
+                    }
+                    size={32}
+                    color={borderColor}
+                    style={{ alignSelf: 'center' }}
+                  />
+                </>
+              )}
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                }}
+              >
                 <MaterialCommunityIcons
-                  name='arrow-up'
+                  name='drag-horizontal-variant'
                   size={40}
                   color={borderColor}
-                  style={{ alignSelf: 'center' }}
                 />
-              </>
-            )}
-          <NotesList
-            listOfNotes={listOfNotes}
-            onLongPress={onLongPress}
-            onTouchEnd={onTouchEnd}
-          />
-          {isPositioning &&
-            (justifyContentRef.current === 'center' ||
-              justifyContentRef.current === 'flex-start') && (
-              <>
-                <MaterialCommunityIcons
-                  name='arrow-down'
-                  size={40}
-                  color={borderColor}
-                  style={{ alignSelf: 'center' }}
-                />
-              </>
-            )}
-        </Pressable>
+              </View>
+              {isPositioning && (
+                <>
+                  <MaterialCommunityIcons
+                    name={
+                      justifyContentRef.current === 'flex-start'
+                        ? 'arrow-down'
+                        : justifyContentRef.current === 'flex-end'
+                          ? 'arrow-up'
+                          : 'swap-vertical'
+                    }
+                    size={32}
+                    color={borderColor}
+                    style={{ alignSelf: 'center' }}
+                  />
+                </>
+              )}
+            </Pressable>
+          ) : null}
+          <View
+            style={{
+              marginBottom: justifyContentRef.current === 'center' ? 40 : 0,
+            }}
+          >
+            <NotesList listOfNotes={listOfNotes} />
+          </View>
+        </View>
       </View>
       <View
         style={{
@@ -182,7 +211,6 @@ export default function NotesScreen() {
               flex: 7,
               borderRadius: 4,
               fontSize: 18,
-              //fontWeight: 'bold',
             },
           ]}
           onChangeText={onChangeText}

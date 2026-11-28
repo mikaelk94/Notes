@@ -9,8 +9,8 @@ export default function Note({
   onTouchEnd,
 }: {
   title: string
-  onLongPress: () => void
-  onTouchEnd: () => void
+  onLongPress?: () => void
+  onTouchEnd?: () => void
 }) {
   const [isChecked, setChecked] = useState(false)
 
@@ -51,8 +51,7 @@ const styles = StyleSheet.create({
   section: {
     flex: 1,
     padding: 2,
-    marginVertical: 4,
-    marginTop: 2,
+    marginBottom: 4,
     borderWidth: 1,
     borderRadius: 2,
     flexDirection: 'row',

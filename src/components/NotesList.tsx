@@ -3,8 +3,8 @@ import Note from './Note'
 
 export default function NotesList(props: {
   listOfNotes: string[]
-  onLongPress: () => void
-  onTouchEnd: () => void
+  onLongPress?: () => void
+  onTouchEnd?: () => void
 }) {
   const { listOfNotes, onLongPress, onTouchEnd } = props
 
